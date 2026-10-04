@@ -73,7 +73,6 @@
       border-radius: 8px;
       font-size: 16px;
       margin-bottom: 10px;
-      outline: none;
     }
 
     input[type="range"] {
@@ -182,8 +181,8 @@
 
       <!-- Monthly Investment -->
       <div class="input-group">
-        <label>
-          <span>Monthly Investment</span>
+        <label for="investmentInput">
+          <span id="investmentLabel">Monthly Investment</span>
           <span class="value">₹<span id="investmentValue">5000</span></span>
         </label>
 
@@ -199,6 +198,7 @@
         <input
           type="range"
           id="investmentRange"
+          aria-labelledby="investmentLabel"
           min="500"
           max="1000000"
           step="500"
@@ -208,8 +208,8 @@
 
       <!-- Expected Return -->
       <div class="input-group">
-        <label>
-          <span>Expected Return (p.a.)</span>
+        <label for="returnInput">
+          <span id="returnLabel">Expected Return (p.a.)</span>
           <span class="value"><span id="returnValue">12</span>%</span>
         </label>
 
@@ -225,6 +225,7 @@
         <input
           type="range"
           id="returnRange"
+          aria-labelledby="returnLabel"
           min="1"
           max="30"
           step="0.1"
@@ -234,8 +235,8 @@
 
       <!-- Investment Period -->
       <div class="input-group">
-        <label>
-          <span>Investment Period</span>
+        <label for="yearsInput">
+          <span id="yearsLabel">Investment Period</span>
           <span class="value"><span id="yearsValue">10</span> Years</span>
         </label>
 
@@ -251,6 +252,7 @@
         <input
           type="range"
           id="yearsRange"
+          aria-labelledby="yearsLabel"
           min="1"
           max="50"
           step="1"
@@ -336,9 +338,29 @@
     // Calculate SIP
     function calculateSIP() {
 
-      const monthlyInvestment = Number(investmentInput.value);
-      const annualReturn = Number(returnInput.value);
-      const years = Number(yearsInput.value);
+      const inputs = [investmentInput, returnInput, yearsInput];
+      const ranges = [investmentRange, returnRange, yearsRange];
+      const values = inputs.map(input => input.valueAsNumber);
+
+      if (values.some(value => !Number.isFinite(value))) {
+        [investmentValue, returnValue, yearsValue,
+          totalInvestment, estimatedReturns, totalValue, maturityValue
+        ].forEach(element => element.textContent = "—");
+        return;
+      }
+
+      const [monthlyInvestment, annualReturn, years] = values.map((value, index) => {
+        const input = inputs[index];
+        const min = Number(input.min);
+        const max = Number(input.max);
+        const step = Number(input.step);
+        const bounded = Math.max(min, Math.min(max, value));
+        const normalized = Number((min + Math.round((bounded - min) / step) * step).toFixed(10));
+
+        input.value = normalized;
+        ranges[index].value = normalized;
+        return normalized;
+      });
 
       const months = years * 12;
 
@@ -389,7 +411,6 @@
 
     // Sync investment input and range
     investmentInput.addEventListener("input", function() {
-      investmentRange.value = this.value;
       calculateSIP();
     });
 
@@ -401,7 +422,6 @@
 
     // Sync return input and range
     returnInput.addEventListener("input", function() {
-      returnRange.value = this.value;
       calculateSIP();
     });
 
@@ -413,7 +433,6 @@
 
     // Sync years input and range
     yearsInput.addEventListener("input", function() {
-      yearsRange.value = this.value;
       calculateSIP();
     });
 

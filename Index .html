@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SIP Calculator India – Calculate SIP Returns & Future Value</title>
+
+<meta name="description" content="Use our free SIP Calculator to calculate SIP returns, total investment, estimated profit and future value. Calculate monthly SIP returns easily in India.">
+
+<meta name="keywords" content="SIP Calculator, SIP Calculator India, SIP Return Calculator, SIP Investment Calculator, Monthly SIP Calculator, SIP Returns">
+
+<meta name="robots" content="index, follow">
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f7fb;
+    color:#172033;
+}
+
+header{
+    background:#0b5cff;
+    color:white;
+    text-align:center;
+    padding:30px 15px;
+}
+
+header h1{
+    margin:0 0 10px;
+    font-size:32px;
+}
+
+header p{
+    margin:0;
+    font-size:16px;
+}
+
+.container{
+    max-width:1050px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.07);
+}
+
+.calculator{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+
+h2{
+    margin-top:0;
+    font-size:24px;
+}
+
+.field{
+    margin-bottom:22px;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+input[type="number"]{
+    width:100%;
+    padding:13px;
+    border:1px solid #ccd3df;
+    border-radius:8px;
+    font-size:16px;
+}
+
+input[type="range"]{
+    width:100%;
+    margin-top:10px;
+    accent-color:#0b5cff;
+}
+
+.range-info{
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:#687386;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:0;
+    border-radius:8px;
+    background:#0b5cff;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0849c7;
+}
+
+.reset{
+    margin-top:10px;
+    background:#e9edf4;
+    color:#172033;
+}
+
+.results{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:12px;
+}
+
+.result-box{
+    padding:17px;
+    border-radius:10px;
+    background:#f5f7fb;
+}
+
+.result-box span{
+    display:block;
+    color:#687386;
+    font-size:14px;
+    margin-bottom:6px;
+}
+
+.result-box strong{
+    font-size:23px;
+}
+
+.future{
+    background:#eaf2ff;
+    border:1px solid #cbdfff;
+}
+
+.summary{
+    margin-top:18px;
+    padding:15px;
+    background:#f7f9fc;
+    border-radius:10px;
+    line-height:1.6;
+}
+
+.table-container{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:550px;
+}
+
+th,td{
+    padding:12px;
+    border-bottom:1px solid #e4e8ef;
+    text-align:right;
+}
+
+th:first-child,
+td:first-child{
+    text-align:left;
+}
+
+th{
+    background:#f4f6fa;
+}
+
+.info{
+    line-height:1.7;
+    color:#4d596b;
+}
+
+.faq{
+    border-bottom:1px solid #e2e6ed;
+    padding:15px 0;
+}
+
+.faq:last-child{
+    border-bottom:0;
+}
+
+.faq h3{
+    margin:0 0 8px;
+    font-size:17px;
+}
+
+.faq p{
+    margin:0;
+    line-height:1.6;
+    color:#566174;
+}
+
+.disclaimer{
+    font-size:13px;
+    color:#697386;
+    line-height:1.6;
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    color:#687386;
+    font-size:13px;
+}
+
+@media(max-width:700px){
+
+    header h1{
+        font-size:27px;
+    }
+
+    .calculator{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>SIP Calculator</h1>
+    <p>Calculate your SIP investment, estimated returns and future value</p>
+</header>
+
+<div class="container">
+
+    <!-- CALCULATOR -->
+    <section class="card calculator">
+
+        <div>
+
+            <h2>Calculate Your SIP</h2>
+
+            <div class="field">
+
+                <label>Monthly SIP Amount (₹)</label>
+
+                <input type="number"
+                       id="sip"
+                       value="5000"
+                       min="500"
+                       max="1000000"
+                       step="500">
+
+                <input type="range"
+                       id="sipRange"
+                       value="5000"
+                       min="500"
+                       max="1000000"
+                       step="500">
+
+                <div class="range-info">
+                    <span>₹500</span>
+                    <span>₹10,00,000</span>
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Expected Annual Return (%)</label>
+
+                <input type="number"
+                       id="rate"
+                       value="12"
+                       min="0"
+                       max="50"
+                       step="0.1">
+
+                <input type="range"
+                       id="rateRange"
+                       value="12"
+                       min="0"
+                       max="50"
+                       step="0.1">
+
+                <div class="range-info">
+                    <span>0%</span>
+                    <span>50%</span>
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>Investment Period (Years)</label>
+
+                <input type="number"
+                       id="years"
+                       value="10"
+                       min="1"
+                       max="50">
+
+                <input type="range"
+                       id="yearsRange"
+                       value="10"
+                       min="1"
+                       max="50">
+
+                <div class="range-info">
+                    <span>1 Year</span>
+                    <span>50 Years</span>
+                </div>
+
+            </div>
+
+
+            <button onclick="calculateSIP()">
+                Calculate SIP Returns
+            </button>
+
+            <button class="reset" onclick="resetCalculator()">
+                Reset
+            </button>
+
+        </div>
+
+
+        <!-- RESULTS -->
+        <div>
+
+            <h2>Your SIP Results</h2>
+
+            <div class="results">
+
+                <div class="result-box">
+                    <span>Total Investment</span>
+                    <strong id="invested">₹0</strong>
+                </div>
+
+                <div class="result-box">
+                    <span>Estimated Returns</span>
+                    <strong id="returns">₹0</strong>
+                </div>
+
+                <div class="result-box future">
+                    <span>Future Value</span>
+                    <strong id="future">₹0</strong>
+                </div>
+
+            </div>
+
+            <div class="summary" id="summary">
+                Enter your investment details to calculate your SIP returns.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- YEARLY TABLE -->
+
+    <section class="card">
+
+        <h2>Year-Wise SIP Growth</h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Investment</th>
+                        <th>Estimated Value</th>
+                        <th>Estimated Returns</th>
+                    </tr>
+                </thead>
+
+                <tbody id="yearTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- INFORMATION -->
+
+    <section class="card">
+
+        <h2>What is a SIP?</h2>
+
+        <p class="info">
+            SIP stands for Systematic Investment Plan. It allows an investor
+            to invest a fixed amount regularly, usually every month, in a
+            mutual fund scheme. SIP can help investors develop disciplined
+            investing habits and invest for long-term financial goals.
+        </p>
+
+
+        <h2>How does a SIP Calculator work?</h2>
+
+        <p class="info">
+            A SIP calculator estimates the future value of your regular
+            investments using the monthly investment amount, expected annual
+            return and investment period. The result includes your total
+            invested amount and estimated returns.
+        </p>
+
+
+        <h2>Why should you use a SIP Calculator?</h2>
+
+        <p class="info">
+            A SIP calculator can help you understand how your investment may
+            grow over time. You can change the monthly SIP amount, expected
+            return and investment duration to compare different investment
+            scenarios before planning your investments.
+        </p>
+
+    </section>
+
+
+    <!-- FAQ -->
+
+    <section class="card">
+
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq">
+
+            <h3>Is SIP investment guaranteed?</h3>
+
+            <p>
+                No. Mutual fund returns are market-linked and are not
+                guaranteed. The calculator only provides an estimate.
+            </p>
+
+        </div>
+
+
+        <div class="faq">
+
+            <h3>What is a good SIP amount to start with?</h3>
+
+            <p>
+                You can start with an amount that comfortably fits your
+                monthly budget. The important thing is to invest regularly
+                according to your financial goals and risk tolerance.
+            </p>
+
+        </div>
+
+
+        <div class="faq">
+
+            <h3>Can I use this SIP Calculator for long-term investments?</h3>
+
+            <p>
+                Yes. You can calculate estimated SIP values for investment
+                periods from 1 to 50 years.
+            </p>
+
+        </div>
+
+
+        <div class="faq">
+
+            <h3>Can SIP returns be higher or lower than the calculator result?</h3>
+
+            <p>
+                Yes. Actual returns can be different because mutual fund
+                performance depends on market conditions and other factors.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- DISCLAIMER -->
+
+    <section class="card">
+
+        <h2>Disclaimer</h2>
+
+        <p class="disclaimer">
+            This SIP Calculator is provided for educational and informational
+            purposes only. The calculated results are estimates based on the
+            expected return entered by the user. Actual mutual fund returns
+            may be higher or lower and are not guaranteed. This calculator
+            does not provide investment, financial or tax advice.
+        </p>
+
+    </section>
+
+</div>
+
+
+<footer>
+    © 2026 SIP Calculator | Educational Tool
+</footer>
+
+
+<script>
+
+const sip = document.getElementById("sip");
+const sipRange = document.getElementById("sipRange");
+
+const rate = document.getElementById("rate");
+const rateRange = document.getElementById("rateRange");
+
+const years = document.getElementById("years");
+const yearsRange = document.getElementById("yearsRange");
+
+
+/* INPUT + SLIDER SYNC */
+
+function connect(input, range){
+
+    input.addEventListener("input", function(){
+
+        range.value = input.value;
+        calculateSIP();
+
+    });
+
+    range.addEventListener("input", function(){
+
+        input.value = range.value;
+        calculateSIP();
+
+    });
+
+}
+
+
+connect(sip,sipRange);
+connect(rate,rateRange);
+connect(years,yearsRange);
+
+
+/* CURRENCY FORMAT */
+
+function formatMoney(number){
+
+    return new Intl.NumberFormat("en-IN",{
+
+        style:"currency",
+        currency:"INR",
+        maximumFractionDigits:0
+
+    }).format(number);
+
+}
+
+
+/* SIP CALCULATOR */
+
+function calculateSIP(){
+
+    let monthlyInvestment =
+        Number(sip.value) || 0;
+
+    let annualReturn =
+        Number(rate.value) || 0;
+
+    let investmentYears =
+        Number(years.value) || 1;
+
+
+    let months =
+        investmentYears * 12;
+
+    let monthlyRate =
+        annualReturn / 100 / 12;
+
+
+    let futureValue;
+
+
+    if(monthlyRate === 0){
+
+        futureValue =
+            monthlyInvestment * months;
+
+    }else{
+
+        futureValue =
+            monthlyInvestment *
+            (
+                (Math.pow(1 + monthlyRate, months) - 1)
+                / monthlyRate
+            ) *
+            (1 + monthlyRate);
+
+    }
+
+
+    let totalInvestment =
+        monthlyInvestment * months;
+
+
+    let estimatedReturns =
+        futureValue - totalInvestment;
+
+
+    document.getElementById("invested").innerText =
+        formatMoney(totalInvestment);
+
+    document.getElementById("returns").innerText =
+        formatMoney(estimatedReturns);
+
+    document.getElementById("future").innerText =
+        formatMoney(futureValue);
+
+
+    document.getElementById("summary").innerHTML =
+        "If you invest <b>" +
+        formatMoney(monthlyInvestment) +
+        "</b> every month for <b>" +
+        investmentYears +
+        " years</b> at an assumed annual return of <b>" +
+        annualReturn.toFixed(1) +
+        "%</b>, your estimated future value could be around <b>" +
+        formatMoney(futureValue) +
+        "</b>.";
+
+
+    createYearTable(
+        monthlyInvestment,
+        monthlyRate,
+        investmentYears
+    );
+
+}
+
+
+/* YEAR-WISE TABLE */
+
+function createYearTable(
+    monthlyInvestment,
+    monthlyRate,
+    totalYears
+){
+
+    let table =
+        document.getElementById("yearTable");
+
+    table.innerHTML = "";
+
+
+    for(let year = 1; year <= totalYears; year++){
+
+        let months =
+            year * 12;
+
+
+        let value;
+
+
+        if(monthlyRate === 0){
+
+            value =
+                monthlyInvestment * months;
+
+        }else{
+
+            value =
+                monthlyInvestment *
+                (
+                    (Math.pow(1 + monthlyRate, months) - 1)
+                    / monthlyRate
+                ) *
+                (1 + monthlyRate);
+
+        }
+
+
+        let investment =
+            monthlyInvestment * months;
+
+
+        let returns =
+            value - investment;
+
+
+        let row =
+            document.createElement("tr");
+
+
+        row.innerHTML =
+
+            "<td>" + year + "</td>" +
+
+            "<td>" + formatMoney(investment) + "</td>" +
+
+            "<td>" + formatMoney(value) + "</td>" +
+
+            "<td>" + formatMoney(returns) + "</td>";
+
+
+        table.appendChild(row);
+
+    }
+
+}
+
+
+/* RESET */
+
+function resetCalculator(){
+
+    sip.value = 5000;
+    sipRange.value = 5000;
+
+    rate.value = 12;
+    rateRange.value = 12;
+
+    years.value = 10;
+    yearsRange.value = 10;
+
+    calculateSIP();
+
+}
+
+
+/* INITIAL CALCULATION */
+
+calculateSIP();
+
+</script>
+
+</body>
+  </html>
